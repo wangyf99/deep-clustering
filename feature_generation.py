@@ -61,6 +61,8 @@ def bond_features_raw(bond):
         (bond.GetIsConjugated() if bt is not None else 0),
         (bond.IsInRing() if bt is not None else 0),
         int(bond.GetStereo())]
+    if fbond == (0,):
+        return (0,0)
     return fbond
 
 def bond_features_onehot(bond: Chem.rdchem.Bond) -> List[Union[bool, int, float]]:
@@ -102,6 +104,8 @@ class LocalFeatures:
         self.n_atoms = len(self.f_atoms)
         self.n_bonds = len(self.f_bonds)
         self.f_atoms_dim = np.shape(self.f_atoms)[1]
+        # print(np.shape(self.n_bonds))
+        print(np.shape(self.f_bonds))
         self.f_bonds_dim = np.shape(self.f_bonds)[1]
 
         if pca:
